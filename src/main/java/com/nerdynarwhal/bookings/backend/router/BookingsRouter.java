@@ -51,18 +51,16 @@ public class BookingsRouter {
                 .build();
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> listBookings(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID bookerId = request.queryParam("bookerId").map(UUID::fromString).orElse(null);
         final UUID bookingId = request.queryParam("bookingId").map(UUID::fromString).orElse(null);
-        final LocalDate startDate = request.queryParam("startDate").map(LocalDate::parse).orElse(null);
-        final LocalDate endDate = request.queryParam("endDate").map(LocalDate::parse).orElse(null);
+        final LocalDate startDate = request.queryParam("date_gte").map(LocalDate::parse).orElse(null);
+        final LocalDate endDate = request.queryParam("date_lte").map(LocalDate::parse).orElse(null);
         final Flux<Booking> bookings = this.bookingService.findBookings(bookerId, bookingId, startDate, endDate);
         return ok().contentType(contentType).body(bookings, Booking.class);
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> getBooking(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID bookingId = UUID.fromString(request.pathVariable("id"));
@@ -71,7 +69,6 @@ public class BookingsRouter {
                 .switchIfEmpty(notFound().build());
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> newBooking(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -80,7 +77,6 @@ public class BookingsRouter {
                 .flatMap(booking -> ok().contentType(contentType).bodyValue(booking));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> saveBooking(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -90,7 +86,6 @@ public class BookingsRouter {
                 .flatMap(booking -> ok().contentType(contentType).bodyValue(booking));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> deleteBooking(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID bookingId = UUID.fromString(request.pathVariable("id"));

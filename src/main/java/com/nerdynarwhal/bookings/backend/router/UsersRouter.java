@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Component
+@API(since = "1.0", status = API.Status.STABLE)
 public class UsersRouter {
 
     private final UserService userService;
@@ -49,14 +50,12 @@ public class UsersRouter {
                 .build();
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> listUsers(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final Flux<User> users = this.userService.findUsers();
         return ok().contentType(contentType).body(users, User.class);
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> getUser(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID userId = UUID.fromString(request.pathVariable("id"));
@@ -65,7 +64,6 @@ public class UsersRouter {
                 .switchIfEmpty(notFound().build());
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> newUser(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -74,7 +72,6 @@ public class UsersRouter {
                 .flatMap(user -> ok().contentType(contentType).bodyValue(user));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> saveUser(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -84,7 +81,6 @@ public class UsersRouter {
                 .flatMap(user -> ok().contentType(contentType).bodyValue(user));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> deleteUser(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID userId = UUID.fromString(request.pathVariable("id"));

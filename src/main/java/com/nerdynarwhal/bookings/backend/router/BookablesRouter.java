@@ -50,14 +50,12 @@ public class BookablesRouter {
                 .build();
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> listBookables(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final Flux<Bookable> bookables = this.bookableService.findBookables();
         return ok().contentType(contentType).body(bookables, Bookable.class);
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> getBookable(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -67,7 +65,6 @@ public class BookablesRouter {
                 .switchIfEmpty(notFound().build());
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> newBookable(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst()
                 .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
@@ -76,7 +73,6 @@ public class BookablesRouter {
                 .flatMap(bookable -> ok().contentType(contentType).bodyValue(bookable));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> saveBookable(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID bookableId = UUID.fromString(request.pathVariable("id"));
@@ -85,7 +81,6 @@ public class BookablesRouter {
                 .flatMap(bookable -> ok().contentType(contentType).bodyValue(bookable));
     }
 
-    @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> deleteBookable(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID bookableId = UUID.fromString(request.pathVariable("id"));
