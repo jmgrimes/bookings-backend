@@ -67,7 +67,8 @@ public class UsersRouter {
 
     @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> newUser(final ServerRequest request) {
-        final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
+        final MediaType contentType = request.headers().accept().stream().findFirst()
+                .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
         return request.bodyToMono(User.class)
                 .flatMap(this.userService::createUser)
                 .flatMap(user -> ok().contentType(contentType).bodyValue(user));
@@ -75,7 +76,8 @@ public class UsersRouter {
 
     @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> saveUser(final ServerRequest request) {
-        final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
+        final MediaType contentType = request.headers().accept().stream().findFirst()
+                .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
         final UUID userId = UUID.fromString(request.pathVariable("id"));
         return request.bodyToMono(User.class)
                 .flatMap(user -> this.userService.updateUser(userId, user))

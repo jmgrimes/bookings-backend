@@ -73,7 +73,8 @@ public class BookingsRouter {
 
     @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> newBooking(final ServerRequest request) {
-        final MediaType contentType = request.headers().contentType().orElse(APPLICATION_JSON);
+        final MediaType contentType = request.headers().accept().stream().findFirst()
+                .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
         return request.bodyToMono(Booking.class)
                 .flatMap(this.bookingService::createBooking)
                 .flatMap(booking -> ok().contentType(contentType).bodyValue(booking));
@@ -81,7 +82,8 @@ public class BookingsRouter {
 
     @API(since = "1.0", status = API.Status.INTERNAL)
     private Mono<ServerResponse> saveBooking(final ServerRequest request) {
-        final MediaType contentType = request.headers().contentType().orElse(APPLICATION_JSON);
+        final MediaType contentType = request.headers().accept().stream().findFirst()
+                .orElse(request.headers().contentType().orElse(APPLICATION_JSON));
         final UUID bookingId = UUID.fromString(request.pathVariable("id"));
         return request.bodyToMono(Booking.class)
                 .flatMap(booking -> this.bookingService.updateBooking(bookingId, booking))
