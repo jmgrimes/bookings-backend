@@ -19,4 +19,13 @@ public interface UserService {
     @API(since = "1.0", status = API.Status.STABLE)
     Mono<User> findUser(final UUID id);
 
+    @API(since = "1.0", status = API.Status.STABLE)
+    Mono<User> createUser(final User user);
+
+    @API(since = "1.0", status = API.Status.STABLE)
+    Mono<User> updateUser(final UUID id, final User user);
+
+    @API(since = "1.0", status = API.Status.STABLE)
+    Mono<User> deleteUser(final UUID id);
+
 }

@@ -33,4 +33,25 @@ class UserServiceImpl implements UserService {
         return this.userRecordRepository.findById(id).map(UserRecord::toUser);
     }
 
+    @Override
+    public Mono<User> createUser(final User user) {
+        return updateUser(UUID.randomUUID(), user);
+    }
+
+    @Override
+    public Mono<User> updateUser(final UUID id, final User user) {
+        final UserRecord userRecord = UserRecord.of(id, user);
+        return this.userRecordRepository.save(userRecord).map(UserRecord::toUser);
+    }
+
+    @Override
+    public Mono<User> deleteUser(final UUID id) {
+        return this.userRecordRepository.findById(id)
+                .flatMap(userRecord ->
+                        this.userRecordRepository.delete(userRecord)
+                                .map(nothing -> userRecord)
+                                .map(UserRecord::toUser)
+                );
+    }
+
 }

@@ -37,8 +37,13 @@ public class UsersRouter {
         return RouterFunctions.route()
                 .path("/users", users -> users
                         .nest(accept(APPLICATION_JSON), acceptingJson -> acceptingJson
-                                .GET("/{id}", this::getUser)
+                                .path("/{id}", byId -> byId
+                                        .GET(this::getUser)
+                                        .PUT(this::saveUser)
+                                        .DELETE(this::deleteUser)
+                                )
                                 .GET(this::listUsers)
+                                .POST(this::newUser)
                         )
                 )
                 .build();
@@ -56,6 +61,32 @@ public class UsersRouter {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID userId = UUID.fromString(request.pathVariable("id"));
         return this.userService.findUser(userId)
+                .flatMap(user -> ok().contentType(contentType).bodyValue(user))
+                .switchIfEmpty(notFound().build());
+    }
+
+    @API(since = "1.0", status = API.Status.INTERNAL)
+    private Mono<ServerResponse> newUser(final ServerRequest request) {
+        final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
+        return request.bodyToMono(User.class)
+                .flatMap(this.userService::createUser)
+                .flatMap(user -> ok().contentType(contentType).bodyValue(user));
+    }
+
+    @API(since = "1.0", status = API.Status.INTERNAL)
+    private Mono<ServerResponse> saveUser(final ServerRequest request) {
+        final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
+        final UUID userId = UUID.fromString(request.pathVariable("id"));
+        return request.bodyToMono(User.class)
+                .flatMap(user -> this.userService.updateUser(userId, user))
+                .flatMap(user -> ok().contentType(contentType).bodyValue(user));
+    }
+
+    @API(since = "1.0", status = API.Status.INTERNAL)
+    private Mono<ServerResponse> deleteUser(final ServerRequest request) {
+        final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
+        final UUID userId = UUID.fromString(request.pathVariable("id"));
+        return this.userService.deleteUser(userId)
                 .flatMap(user -> ok().contentType(contentType).bodyValue(user))
                 .switchIfEmpty(notFound().build());
     }

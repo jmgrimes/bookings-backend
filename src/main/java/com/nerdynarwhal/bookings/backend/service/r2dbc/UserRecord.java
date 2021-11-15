@@ -26,4 +26,8 @@ record UserRecord(
         return new User(id, name, title, notes, image);
     }
 
+    public static UserRecord of(final UUID id, final User user) {
+        return new UserRecord(id, user.name(), user.title(), user.notes(), user.image());
+    }
+
 }
