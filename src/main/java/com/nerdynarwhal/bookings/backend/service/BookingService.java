@@ -3,12 +3,15 @@ package com.nerdynarwhal.bookings.backend.service;
 import com.nerdynarwhal.bookings.backend.model.Booking;
 
 import org.apiguardian.api.API;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Service
+@API(since = "1.0", status = API.Status.STABLE)
 public interface BookingService {
 
     @API(since = "1.0", status = API.Status.STABLE)

@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Service
+@API(since = "1.0", status = API.Status.STABLE)
 public interface UserService {
 
     @API(since = "1.0", status = API.Status.STABLE)

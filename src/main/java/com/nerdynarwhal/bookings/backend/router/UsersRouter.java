@@ -1,6 +1,7 @@
 package com.nerdynarwhal.bookings.backend.router;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
@@ -11,6 +12,8 @@ import org.apiguardian.api.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
@@ -19,24 +22,37 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Component
-public class UserRoutesHandler {
+public class UsersRouter {
 
     private final UserService userService;
 
-    public UserRoutesHandler(@Autowired final UserService userService) {
+    @API(since = "1.0", status = API.Status.STABLE)
+    public UsersRouter(@Autowired final UserService userService) {
         super();
         this.userService = userService;
     }
 
     @API(since = "1.0", status = API.Status.STABLE)
-    public Mono<ServerResponse> listUsers(final ServerRequest request) {
+    public RouterFunction<ServerResponse> routerFunction() {
+        return RouterFunctions.route()
+                .path("/users", users -> users
+                        .nest(accept(APPLICATION_JSON), acceptingJson -> acceptingJson
+                                .GET(this::listUsers)
+                                .GET("/{id}", this::getUser)
+                        )
+                )
+                .build();
+    }
+
+    @API(since = "1.0", status = API.Status.INTERNAL)
+    private Mono<ServerResponse> listUsers(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final Flux<User> users = this.userService.findUsers();
         return ok().contentType(contentType).body(users, User.class);
     }
 
-    @API(since = "1.0", status = API.Status.STABLE)
-    public Mono<ServerResponse> getUser(final ServerRequest request) {
+    @API(since = "1.0", status = API.Status.INTERNAL)
+    private Mono<ServerResponse> getUser(final ServerRequest request) {
         final MediaType contentType = request.headers().accept().stream().findFirst().orElse(APPLICATION_JSON);
         final UUID userId = UUID.fromString(request.pathVariable("id"));
         return this.userService.findUser(userId)
