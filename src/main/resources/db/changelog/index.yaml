@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/2021-11-14-001-create-table-users.yaml
+  - include:
+      file: classpath:/db/changelog/2021-11-14-002-create-table-bookables.yaml
+  - include:
+      file: classpath:/db/changelog/2021-11-14-003-create-table-bookings.yaml

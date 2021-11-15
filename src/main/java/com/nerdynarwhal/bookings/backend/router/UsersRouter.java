@@ -37,8 +37,8 @@ public class UsersRouter {
         return RouterFunctions.route()
                 .path("/users", users -> users
                         .nest(accept(APPLICATION_JSON), acceptingJson -> acceptingJson
-                                .GET(this::listUsers)
                                 .GET("/{id}", this::getUser)
+                                .GET(this::listUsers)
                         )
                 )
                 .build();

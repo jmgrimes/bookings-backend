@@ -38,13 +38,13 @@ public class BookablesRouter {
         return RouterFunctions.route()
                 .path("/bookables", bookables -> bookables
                         .nest(accept(APPLICATION_JSON), acceptingJson -> acceptingJson
-                                .GET(this::listBookables)
-                                .POST(this::newBookable)
                                 .path("/{id}", byId -> byId
                                         .GET(this::getBookable)
                                         .PUT(this::saveBookable)
                                         .DELETE(this::deleteBookable)
                                 )
+                                .GET(this::listBookables)
+                                .POST(this::newBookable)
                         )
                 )
                 .build();

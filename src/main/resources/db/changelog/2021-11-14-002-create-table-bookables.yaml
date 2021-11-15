@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-11-14-002-create-table-bookables
+      author: jmgrimes
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: bookables
+      changes:
+        - createTable:
+            tableName: bookables
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: bookable_pk
+              - column:
+                  name: name
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: days
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sessions
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: LONG
+                  constraints:
+                    nullable: true

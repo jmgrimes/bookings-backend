@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-11-14-003-create-table-bookings
+      author: jmgrimes
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: bookings
+      changes:
+        - createTable:
+            tableName: bookings
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: booking_pk
+              - column:
+                  name: booker_id
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bookable_id
+                  type: VARCHAR(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: session
+                  type: VARCHAR(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: notes
+                  type: LONG
+                  constraints:
+                    nullable: true
+        - addForeignKey:
+            baseTableName: bookings
+            baseColumnNames: booker_id
+            referencedTableName: users
+            referencedColumnNames: id
+        - addForeignKey:
+            baseTableName: bookings
+            baseColumnNames: bookable_id
+            referencedTableName: bookable
+            referencedColumnNames: id

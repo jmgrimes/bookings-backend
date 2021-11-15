@@ -39,13 +39,13 @@ public class BookingsRouter {
         return RouterFunctions.route()
                 .path("/bookings", bookings -> bookings
                         .nest(accept(APPLICATION_JSON), acceptingJson -> acceptingJson
-                                .GET(this::listBookings)
-                                .POST(this::newBooking)
                                 .path("/{id}", byId -> byId
                                         .GET(this::getBooking)
                                         .PUT(this::saveBooking)
                                         .DELETE(this::deleteBooking)
                                 )
+                                .GET(this::listBookings)
+                                .POST(this::newBooking)
                         )
                 )
                 .build();
