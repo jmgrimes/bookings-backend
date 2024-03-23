@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bookings-backend/enums": ["libs/shared/enums/src/index.ts"],
+      "@bookings-backend/payloads": ["libs/shared/payloads/src/index.ts"],
+      "@bookings-backend/reservables": [
+        "libs/features/reservables/src/index.ts"
+      ],
+      "@bookings-backend/reservations": [
+        "libs/features/reservations/src/index.ts"
+      ],
+      "@bookings-backend/users": ["libs/features/users/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

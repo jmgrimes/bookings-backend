@@ -1,0 +1,24 @@
+{
+  "name": "bookings-users-subgraph",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/bookings-users-subgraph/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "bookings-users-subgraph:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "bookings-users-subgraph:build:development"
+        },
+        "production": {
+          "buildTarget": "bookings-users-subgraph:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

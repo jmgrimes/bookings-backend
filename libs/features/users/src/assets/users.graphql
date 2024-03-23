@@ -1,0 +1,78 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
+  @link(url: "https://specs.apollo.dev/federation/v2.7", import: ["@key"])
+
+"Representation of a User of the Reservation System."
+type User @key(fields: "id") {
+  """
+  The ID value for the User.
+  Formatted as a 24 character hexadecimal ObjectId value.
+  """
+  id: ID!
+
+  "The first name of the User."
+  firstName: String!
+
+  "The last name of the User."
+  lastName: String!
+
+  "The email address of the User."
+  emailAddress: String!
+
+  "The title of the User."
+  title: String!
+
+  "The image of the User."
+  image: String
+
+  "The notes for the User."
+  notes: String
+}
+
+"Input for the User part of User mutation operations."
+input UserInput {
+  "The first name of the User."
+  firstName: String!
+
+  "The last name of the User."
+  lastName: String!
+
+  "The email address of the User."
+  emailAddress: String!
+
+  "The title of the User."
+  title: String!
+
+  "The image of the User."
+  image: String
+
+  "The notes for the User."
+  notes: String
+}
+
+type UserPayload {
+  "Errors encountered during a user mutation operation."
+  errors: [PayloadError!]
+
+  "The User resulting from the user mutation operaiton."
+  user: User
+}
+
+type Query {
+  "Retrieve a User by the user's ID value."
+  user(id: ID!): User
+
+  "Retrieve all users."
+  users(ids: [ID]): [User!]!
+}
+
+type Mutation {
+  "Create a new user represented by the input fields."
+  addUser(user: UserInput!): UserPayload
+
+  "Update an existing user by the user's ID value with the input fields."
+  updateUser(id: ID!, user: UserInput!): UserPayload
+
+  "Delete an existing user by the user's ID value."
+  deleteUser(id: ID!): UserPayload
+}

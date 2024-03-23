@@ -1,0 +1,8 @@
+{
+  "name": "reservations",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/reservations/src",
+  "projectType": "library",
+  "targets": {},
+  "tags": []
+}

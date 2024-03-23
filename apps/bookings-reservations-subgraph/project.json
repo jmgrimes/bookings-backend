@@ -1,0 +1,24 @@
+{
+  "name": "bookings-reservations-subgraph",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/bookings-reservations-subgraph/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "bookings-reservations-subgraph:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "bookings-reservations-subgraph:build:development"
+        },
+        "production": {
+          "buildTarget": "bookings-reservations-subgraph:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

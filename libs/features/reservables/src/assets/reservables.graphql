@@ -1,0 +1,42 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
+  @link(url: "https://specs.apollo.dev/federation/v2.7", import: ["@key"])
+
+enum ReservableType {
+  Equipment
+  Room
+}
+
+type Reservable @key(fields: "id") {
+  id: ID!
+  name: String!
+  description: String!
+  type: ReservableType!
+  days: [Day!]!
+  sessions: [Session!]
+}
+
+type ReservablePayload {
+  errors: [String!]
+  reservable: Reservable
+}
+
+input ReservableInput {
+  name: String!
+  description: String!
+  type: ReservableType!
+  days: [Day!]!
+  sessions: [Session!]!
+}
+
+type Query {
+  reservable(id: ID!): Reservable
+  reservables(ids: [ID!]): [Reservable!]
+  reservablesByType(type: ReservableType!): [Reservable!]
+}
+
+type Mutation {
+  addReservable(reservable: ReservableInput!): ReservablePayload
+  updateReservable(id: ID!, reservable: ReservableInput!): ReservablePayload
+  deleteReservable(id: ID!): ReservablePayload
+}

@@ -1,0 +1,21 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
+  @link(url: "https://specs.apollo.dev/federation/v2.7", import: ["@shared"])
+
+enum Day @shareable {
+  Sunday
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+}
+
+enum Session @shareable {
+  Breakfast
+  Morning
+  Lunch
+  Afternoon
+  Evening
+}
