@@ -18,7 +18,11 @@
           "buildTarget": "bookings-users-subgraph:build:production"
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/bookings-users-subgraph/Dockerfile . -t bookings-users-subgraph"
     }
   },
-  "tags": []
+  "tags": ["scope:app:users"]
 }

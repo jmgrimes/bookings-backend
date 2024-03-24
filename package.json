@@ -2,7 +2,12 @@
   "name": "@bookings-backend/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many -t build",
+    "format": "nx format",
+    "lint": "nx run-many -t lint",
+    "package": "nx run-many -t docker-build"
+  },
   "private": true,
   "dependencies": {
     "@apollo/server": "^4.10.2",

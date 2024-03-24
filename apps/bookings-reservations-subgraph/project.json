@@ -18,7 +18,11 @@
           "buildTarget": "bookings-reservations-subgraph:build:production"
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/bookings-reservations-subgraph/Dockerfile . -t bookings-reservations-subgraph"
     }
   },
-  "tags": []
+  "tags": ["scope:app:reservations"]
 }

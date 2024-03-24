@@ -1,13 +1,13 @@
+import { ApolloServerPluginInlineTraceDisabled } from "@apollo/server/dist/esm/plugin/disabled"
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/dist/esm/plugin/landingPage/default"
+import { ApolloDriverConfig, ApolloFederationDriver } from "@nestjs/apollo"
 import { Module } from "@nestjs/common"
+import { ConfigModule, ConfigService } from "@nestjs/config"
+import { GraphQLModule } from "@nestjs/graphql"
+import { MongooseModule } from "@nestjs/mongoose"
 
 import { ReservablesModule } from "@bookings-backend/reservables"
 import { ReservationsModule } from "@bookings-backend/reservations"
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
-import { ApolloServerPluginInlineTraceDisabled } from '@apollo/server/dist/esm/plugin/disabled';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/dist/esm/plugin/landingPage/default';
-import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -16,10 +16,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       driver: ApolloFederationDriver,
       path: "/api/graphql",
       playground: false,
-      plugins: [
-        ApolloServerPluginInlineTraceDisabled(),
-        ApolloServerPluginLandingPageLocalDefault(),
-      ],
+      plugins: [ApolloServerPluginInlineTraceDisabled(), ApolloServerPluginLandingPageLocalDefault()],
       typePaths: ["./**/*.graphql"],
     }),
     MongooseModule.forRootAsync({

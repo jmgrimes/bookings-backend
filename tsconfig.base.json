@@ -17,12 +17,8 @@
     "paths": {
       "@bookings-backend/enums": ["libs/shared/enums/src/index.ts"],
       "@bookings-backend/payloads": ["libs/shared/payloads/src/index.ts"],
-      "@bookings-backend/reservables": [
-        "libs/features/reservables/src/index.ts"
-      ],
-      "@bookings-backend/reservations": [
-        "libs/features/reservations/src/index.ts"
-      ],
+      "@bookings-backend/reservables": ["libs/features/reservables/src/index.ts"],
+      "@bookings-backend/reservations": ["libs/features/reservations/src/index.ts"],
       "@bookings-backend/users": ["libs/features/users/src/index.ts"]
     }
   },
