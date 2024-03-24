@@ -1,0 +1,7 @@
+supergraph:
+  listen: 0.0.0.0:4000
+  path: /graphql
+  introspection: false
+override_subgraph_url:
+  reservations: "${env.RESERVATIONS_SUBGRAPH_HOST_URL}"
+  users: "${env.USERS_SUBGRAPH_HOST_URL}"

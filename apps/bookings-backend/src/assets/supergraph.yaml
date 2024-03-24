@@ -1,0 +1,10 @@
+federation_version: =2.7.0
+subgraphs:
+  reservations:
+    routing_url: http://reservations:3000/api/graphql
+    schema:
+      file: ./reservations/schema.graphql
+  people:
+    routing_url: http://users:3000/api/api/graphql
+    schema:
+      file: ./users/schema.graphql

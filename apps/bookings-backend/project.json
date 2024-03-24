@@ -1,0 +1,8 @@
+{
+  "name": "bookings-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/bookings-backend/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": ["scope:app:reservations", "scope:app:users"]
+}

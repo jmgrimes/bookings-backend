@@ -1,8 +1,6 @@
-extend schema
-  @link(url: "https://specs.apollo.dev/link/v1.0", import: ["@link"])
-  @link(url: "https://specs.apollo.dev/federation/v2.7", import: ["@key"])
+extend schema @link(url: "https://specs.apollo.dev/federation/v2.7", import: ["@key", "@shareable"])
 
-type User @key(fields: "id"){
+type User @key(fields: "id") {
   id: ID!
   reservations: [Reservation!]
 }

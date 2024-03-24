@@ -13,7 +13,7 @@ ADD dist/apps/bookings-reservations-subgraph/pnpm-lock.yaml bookings-reservation
 
 RUN corepack pnpm --prefix bookings-reservations-subgraph --prod install
 
-COPY dist/apps/bookings-reservations-subgraph/schemas bookings-reservations-subgraph/
+COPY dist/apps/bookings-reservations-subgraph/reservations bookings-reservations-subgraph/
 ADD dist/apps/bookings-reservations-subgraph/main.js bookings-reservations-subgraph/
 
 RUN chown -R bookings-reservations-subgraph:bookings-reservations-subgraph .

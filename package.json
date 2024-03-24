@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@apollo/server": "^4.10.2",
+    "@apollo/subgraph": "^2.7.2",
     "@nestjs/apollo": "^12.1.0",
     "@nestjs/common": "^10.0.2",
     "@nestjs/config": "^3.2.0",
@@ -21,6 +22,7 @@
     "apollo-datasource-mongodb": "^0.6.0",
     "axios": "^1.6.0",
     "class-validator": "^0.14.1",
+    "graphql-tag": "^2.12.6",
     "mongoose": "^8.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",

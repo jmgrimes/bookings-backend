@@ -1,5 +1,6 @@
 const { NxWebpackPlugin } = require("@nx/webpack")
 const { join } = require("path")
+const schemaAssets = require("./webpack.config.schemas")
 
 module.exports = {
   output: {
@@ -11,28 +12,7 @@ module.exports = {
       compiler: "tsc",
       main: "./src/main.ts",
       tsConfig: "./tsconfig.app.json",
-      assets: [
-        {
-          "glob": "*.graphql",
-          "input": "libs/features/reservables/src/assets/",
-          "output": "./schemas/reservables/"
-        },
-        {
-          "glob": "*.graphql",
-          "input": "libs/features/reservations/src/assets/",
-          "output": "./schemas/reservations/"
-        },
-        {
-          "glob": "*.graphql",
-          "input": "libs/shared/enums/src/assets/",
-          "output": "./schemas/enums/"
-        },
-        {
-          "glob": "*.graphql",
-          "input": "libs/shared/payloads/src/assets/",
-          "output": "./schemas/payloads/"
-        },
-      ],
+      assets: [...schemaAssets],
       optimization: false,
       outputHashing: "none",
       generatePackageJson: true,

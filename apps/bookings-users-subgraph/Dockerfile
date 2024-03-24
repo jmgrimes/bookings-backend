@@ -13,7 +13,7 @@ ADD dist/apps/bookings-users-subgraph/pnpm-lock.yaml bookings-users-subgraph/
 
 RUN corepack pnpm --prefix bookings-users-subgraph --prod install
 
-COPY dist/apps/bookings-users-subgraph/schemas bookings-users-subgraph/
+COPY dist/apps/bookings-users-subgraph/users bookings-users-subgraph/
 ADD dist/apps/bookings-users-subgraph/main.js bookings-users-subgraph/
 
 RUN chown -R bookings-users-subgraph:bookings-users-subgraph .
